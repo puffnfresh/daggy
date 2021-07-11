@@ -13,7 +13,6 @@
   "readmeFilename": "README.md",
   "dependencies": {
     "sanctuary-show": "2.0.0",
-    "sanctuary-type-classes": "3.0.0",
     "sanctuary-type-identifiers": "1.0.0"
   },
   "devDependencies": {

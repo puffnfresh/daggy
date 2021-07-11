@@ -4,20 +4,17 @@
 
   if (typeof module === 'object' && typeof module.exports === 'object') {
     module.exports = f (require ('sanctuary-show'),
-                        require ('sanctuary-type-classes'),
                         require ('sanctuary-type-identifiers'));
   } else if (typeof define === 'function' && define.amd != null) {
     define (['sanctuary-show',
-             'sanctuary-type-classes',
              'sanctuary-type-identifiers'],
             f);
   } else {
     self.daggy = f (self.sanctuaryShow,
-                    self.sanctuaryTypeClasses,
                     self.sanctuaryTypeIdentifiers);
   }
 
-} (function(show, Z, type) {
+} (function(show, type) {
 
   'use strict';
 
@@ -47,7 +44,9 @@
   }
 
   function taggedSum(typeName, constructors) {
-    var proto = {cata: sum$cata, toString: sum$toString};
+    var proto = {
+      'cata': sum$cata, 'toString': sum$toString, '@@show': sum$toString
+    };
     var tags = Object.keys (constructors);
     var typeRep = proto.constructor = {
       'toString': typeRepToString,

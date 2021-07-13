@@ -3,18 +3,18 @@
   'use strict';
 
   if (typeof module === 'object' && typeof module.exports === 'object') {
-    module.exports = f (require ('sanctuary-type-classes'),
+    module.exports = f (require ('sanctuary-show'),
                         require ('sanctuary-type-identifiers'));
   } else if (typeof define === 'function' && define.amd != null) {
-    define (['sanctuary-type-classes',
+    define (['sanctuary-show',
              'sanctuary-type-identifiers'],
             f);
   } else {
-    self.daggy = f (self.sanctuaryTypeClasses,
+    self.daggy = f (self.sanctuaryShow,
                     self.sanctuaryTypeIdentifiers);
   }
 
-} (function(Z, type) {
+} (function(show, type) {
 
   'use strict';
 
@@ -44,7 +44,9 @@
   }
 
   function taggedSum(typeName, constructors) {
-    var proto = {cata: sum$cata, toString: sum$toString};
+    var proto = {
+      'cata': sum$cata, 'toString': sum$toString, '@@show': sum$toString
+    };
     var tags = Object.keys (constructors);
     var typeRep = proto.constructor = {
       'toString': typeRepToString,
@@ -156,9 +158,9 @@
   // optimised version of `arr.map(toString).join(', ')`
   function arrToString(arr) {
     if (arr.length === 0) return '';
-    var str = '(' + Z.toString (arr[0]);
+    var str = '(' + show (arr[0]);
     for (var idx = 1; idx < arr.length; idx += 1) {
-      str = str + ', ' + Z.toString (arr[idx]);
+      str = str + ', ' + show (arr[idx]);
     }
     return str + ')';
   }

@@ -30,8 +30,11 @@
   // * names of all variants of a sum type
   var TAGS = '@@tags';
 
+  var SHOW = '@@show';
+
   function tagged(typeName, fields) {
     var proto = {toString: tagged$toString};
+    proto[SHOW] = tagged$toString;
     // this way we avoid named function
     var typeRep = makeConstructor (fields, proto);
     typeRep.toString = typeRepToString;
@@ -44,9 +47,9 @@
   }
 
   function taggedSum(typeName, constructors) {
-    var proto = {
-      'cata': sum$cata, 'toString': sum$toString, '@@show': sum$toString
-    };
+    var proto = {cata: sum$cata, toString: sum$toString};
+    proto[SHOW] = sum$toString;
+
     var tags = Object.keys (constructors);
     var typeRep = proto.constructor = {
       'toString': typeRepToString,

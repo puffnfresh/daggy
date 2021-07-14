@@ -42,6 +42,7 @@
     typeRep.is = isType (typeName);
     typeRep.from = makeConstructorFromObject (fields, proto);
     typeRep[TYPE] = typeName;
+    typeRep[SHOW] = typeRepToString;
     proto.constructor = typeRep;
     return typeRep;
   }
@@ -58,6 +59,7 @@
       '@@type': typeName,
       '@@tags': tags
     };
+    typeRep[SHOW] = typeRepToString;
     tags.forEach (function(tag) {
       var fields = constructors[tag];
       var tagProto = Object.create (proto);
